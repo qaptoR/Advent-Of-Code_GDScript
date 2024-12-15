@@ -26,7 +26,7 @@ var height :int = 0
 
 
 func _init() -> void:
-    print("Hello, Day 2!\n")
+    print("Hello, Day 1!\n")
 
     # var data :Array = load_data(TEST_FILE)
     var data :Array = load_data(DATA_FILE)
@@ -61,13 +61,15 @@ func test_data1(data_ :Array) -> void:
         lists[0].append(row[0].to_int())
         lists[1].append(row[1].to_int())
 
+    var sort :Callable = func(a :int, b :int) -> bool:
+        return a > b
+
+    lists[0].sort_custom(sort)
+    lists[1].sort_custom(sort)
+
     for i in range(height):
-        var a :int = lists[0].min()
-        lists[0].erase(a)
-
-        var b :int = lists[1].min()
-        lists[1].erase(b)
-
+        var a :int = lists[0].pop_back()
+        var b :int = lists[1].pop_back()
         sum += abs(a - b)
 
 

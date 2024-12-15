@@ -13,7 +13,7 @@ extends SceneTree
 # data size: 50x50 & 20x1000
 # data solutions:
 # Part 1 - 1421727
-# Part 2 - ?
+# Part 2 - 1463160
 
 
 const STEST_FILE = "D:/Files/advent/2024/day15/stest15.txt"
