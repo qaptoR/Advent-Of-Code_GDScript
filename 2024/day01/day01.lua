@@ -20,15 +20,6 @@ local function read_file(file_path)
 	return content
 end
 
--- split string
-local function split_string(input_str, delimiter)
-	local result = {}
-	for match in (input_str .. delimiter):gmatch("(.-)" .. delimiter) do
-		table.insert(result, match)
-	end
-	return result
-end
-
 -- part 1
 local function test_data1(data_)
 	local time_start = vim.uv.hrtime() / 1000000
@@ -47,7 +38,7 @@ local function test_data1(data_)
 		table.sort(lists[i])
 	end
 
-	for i = 1, #lists[1] do
+	for _ = 1, #lists[1] do
 		local a = lists[1][1]
 		table.remove(lists[1], 1)
 
