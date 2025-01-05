@@ -2,7 +2,7 @@ const std = @import("std");
 
 const Allocator = std.mem.Allocator;
 
-const TEST_FILE = "D:/Files/advent/2024/day01/test01.txt";
+// const TEST_FILE = "D:/Files/advent/2024/day01/test01.txt";
 const DATA_FILE = "D:/Files/advent/2024/day01/data01.txt";
 
 fn loadData(allocator: Allocator, filename: []const u8) !std.ArrayList(std.ArrayList(i32)) {
