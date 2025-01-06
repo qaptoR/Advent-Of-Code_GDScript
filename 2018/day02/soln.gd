@@ -5,13 +5,17 @@ extends SceneTree
 # Part 2 - ?
 
 const DATA_FILE = (
-    # "D:/Files/advent/2018/day01/test01.txt"
-    "D:/Files/advent/2018/day01/data01.txt"
+    "D:/Files/advent/2018/day02/test02.txt"
+    # "D:/Files/advent/2018/day02/data02.txt"
 )
 
 
+var height :int = 0
+var width :int = 0
+
+
 func _init() -> void:
-    print("Saluton, Tago 01!\n")
+    print("Saluton, Tago 02!\n")
 
     var data :Array = load_data(DATA_FILE)
 
@@ -36,8 +40,26 @@ func test_data1(data_ :Array) -> void:
     var time_start :int = Time.get_ticks_msec()
 
     var result = 0
-    for i in data_:
-        result += int(i)
+    var regexa := RegEx.new()
+    #(?:(.)(?!.*\1.*\1))+
+    # regexa.compile(r'(?!.*(\w).*\1.*\1).*\1.*\1.*')
+    regexa.compile(r'^\w*(?<!\1)\w*(\w)(?=\w*\1\w*)(?!\w*\1\w*\1\w*)\w*$')
+
+    var regexb := RegEx.new()
+    regexb.compile(r'(\w).*\1.*\1')
+
+    var counta :int = 0
+    var countb :int = 0
+
+    for row in data_:
+        if regexa.search(row) != null:
+            counta += 1
+            prints('a: ', row, regexa.search(row).get_start(1))
+        if regexb.search(row) != null:
+            countb += 1
+            print('b: ', row)
+
+    result = counta * countb
 
     var time_end :int = Time.get_ticks_msec()
     print('part 1: ', result, ' time: ', time_end - time_start)
@@ -47,13 +69,6 @@ func test_data2(data_ :Array) -> void:
     var time_start :int = Time.get_ticks_msec()
 
     var result = 0
-    var freqs :Dictionary = {}
-    var i :int = 0
-    while true:
-        result += int(data_[i])
-        if freqs.get(result, false): break
-        freqs[result] = true
-        i = (i + 1) % data_.size()
 
     var time_end :int = Time.get_ticks_msec()
     print('part 2: ', result, ' time: ', time_end - time_start)
