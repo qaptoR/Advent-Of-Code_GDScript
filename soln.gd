@@ -5,8 +5,8 @@ extends SceneTree
 # Part 2 - ?
 
 const DATA_FILE = (
-    # "D:/Files/advent/2099/day00/test00.txt"
-    "D:/Files/advent/2099/day00/data00.txt"
+    # "D:/Files/advent/2099/day00/test.txt"
+    "D:/Files/advent/2099/day00/data.txt"
 )
 
 
