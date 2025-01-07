@@ -6,20 +6,14 @@ extends SceneTree
 
 const DATA_FILE = (
     # "D:/Files/advent/2018/day03/test.txt"
-    "D:/Files/advent/2018/day03/data.txt"
+    # "D:/Files/advent/2018/day03/data.txt"
+    "/Users/rocco/Programming/advent/2018/day03/data.txt"
 )
-
-
-var height :int = 0
-var width :int = 0
-
 
 func _init() -> void:
     print("Saluton, Tago 03!\n")
 
     var data :Dictionary = load_data(DATA_FILE)
-    # height = data.size()
-    # width = data[0].size()
 
     test_data1(data)
     test_data2(data)
@@ -83,7 +77,6 @@ func test_data2(data_ :Dictionary) -> void:
                 claims[keys[j]] = true
 
     result = data_.keys().filter(func(x): return not claims.get(x, false))[0]
-
 
     var time_end :int = Time.get_ticks_msec()
     print('part 2: ', result, ' time: ', time_end - time_start)
