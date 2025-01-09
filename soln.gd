@@ -10,16 +10,10 @@ const DATA_FILE = (
 )
 
 
-var height :int = 0
-var width :int = 0
-
-
 func _init() -> void:
     print("Saluton, Tago 00!\n")
 
     var data :Array = load_data(DATA_FILE)
-    # height = data.size()
-    # width = data[0].size()
 
     test_data1(data)
     test_data2(data)
