@@ -26,9 +26,9 @@ func load_data (filename :String) -> Array:
     file.close()
 
     var data :Array = []
-    var rows :PackedStringArray = content.split("\n", false)
-    for row in rows:
-        data.append(Array(row.split("", false)))
+    var lines :PackedStringArray = content.split("\n", false)
+    for line in lines:
+        data.append(Array(line.split("", false)))
 
     return data
 
