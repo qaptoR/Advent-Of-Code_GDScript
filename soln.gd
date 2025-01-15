@@ -12,7 +12,7 @@ const DATA_FILE = (
 func _init() -> void:
     print("Saluton, Tago 00!\n")
 
-    var data :Array = load_data(DATA_FILE)
+    var data :Dictionary = load_data(DATA_FILE)
 
     test_data1(data)
     test_data2(data)
@@ -20,21 +20,21 @@ func _init() -> void:
     print('\nfin')
 
 
-func load_data (filename :String) -> Array:
+func load_data (filename :String) -> Dictionary:
 
     var file := FileAccess.open(filename, FileAccess.READ)
     var content :String = file.get_as_text(true)
     file.close()
 
-    var data :Array = []
+    var data :Dictionary = {}
     var lines :PackedStringArray = content.split("\n", false)
     for line in lines:
-        data.append(Array(line.split("", false)))
+        data.get_or_add('chars', []).append(Array(line.split("", false)))
 
     return data
 
 
-func test_data1(data_ :Array) -> void:
+func test_data1(data_ :Dictionary) -> void:
     var time_start :int = Time.get_ticks_msec()
 
     var result = 0
@@ -43,7 +43,7 @@ func test_data1(data_ :Array) -> void:
     print('part 1: ', result, ' time: ', time_end - time_start)
 
 
-func test_data2(data_ :Array) -> void:
+func test_data2(data_ :Dictionary) -> void:
     var time_start :int = Time.get_ticks_msec()
 
     var result = 0
