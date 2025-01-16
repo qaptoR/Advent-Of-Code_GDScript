@@ -34,7 +34,7 @@ func load_data (filename :String) -> Dictionary:
     return data
 
 
-func test_data1(data_ :Dictionary) -> void:
+func test_data1(data :Dictionary) -> void:
     var time_start :int = Time.get_ticks_msec()
 
     var result = 0
@@ -43,7 +43,7 @@ func test_data1(data_ :Dictionary) -> void:
     print('part 1: ', result, ' time: ', time_end - time_start)
 
 
-func test_data2(data_ :Dictionary) -> void:
+func test_data2(data :Dictionary) -> void:
     var time_start :int = Time.get_ticks_msec()
 
     var result = 0
