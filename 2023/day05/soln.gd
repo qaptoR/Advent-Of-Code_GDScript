@@ -1,11 +1,10 @@
-
 extends SceneTree
 
 const DATA_FILE = (
     # "D:/Files/advent/2023/day05/test.txt"
-    # "D:/Files/advent/2023/day05/data.txt"
+    "D:/Files/advent/2023/day05/data.txt"
     # "/Users/rocco/Programming/advent/2023/day05/data.txt"
-    "/Users/rocco/Programming/advent/2023/day05/test.txt"
+    # "/Users/rocco/Programming/advent/2023/day05/test.txt"
 )
 
 
@@ -47,8 +46,8 @@ func load_data (filename :String) -> Dictionary:
                 dest = ranges[0].to_int(),
                 src = ranges[1].to_int(),
                 len = ranges[2].to_int(),
-                dr = {s = ranges[0].to_int(), e = ranges[0].to_int() + ranges[2].to_int() -1},
-                sr = {s = ranges[1].to_int(), e = ranges[1].to_int() + ranges[2].to_int() -1},
+                dr = {s = ranges[0].to_int(), e = ranges[0].to_int() + ranges[2].to_int()},
+                sr = {s = ranges[1].to_int(), e = ranges[1].to_int() + ranges[2].to_int()},
 
             })
 
@@ -85,43 +84,53 @@ func test_data2(data :Dictionary) -> void:
 
     var result = 0
 
-    var rset :Array = []
+    var queue :Array = []
     for r in range(0, data.seeds.size(), 2):
-        rset.append({
+        queue.append({
             s = data.seeds[r],
-            e = data.seeds[r] + data.seeds[r +1] -1
+            e = data.seeds[r] + data.seeds[r +1]
         })
 
     var current = 'seed'
     while current != 'location':
-        var iset :Array = []
-        for r in rset:
-            for _range in data[current].ranges:
-                var ir
-                if r == _range.sr:
-                    ir = r 
-                    # update r
-                elif _range.sr.s <= r.s and r.s <= _range.sr.e:
-                    ir = {s = r.s, e = min(r.e, _range.sr.e)}
-                    # update r
-                elif _range.sr.s <= r.e and r.e <= _range.sr.e:
-                    ir = {s = max(r.s, _range.sr.s), e = r.e}
-                    # update r
-                elif r.s <= _range.sr.s and _range.sr.e <= r.e:
-                    ir = _range.sr
-                    #update r
-                else: continue
-                ir.s = _range.dest + ir.s - _range.src
-                ir.e = _range.dest + ir.e - _range.src
-                iset.append(ir)
-        rset.assign(iset)
+        var next_queue :Array = []
+        while queue.size() > 0:
+            var curr = queue.pop_front()
+            var breakflag = false
+            for r in data[current].ranges:
+                var diff = r.dest - r.src
+                if no_rng_overlap(curr, r.sr):
+                    continue
+                if curr.s < r.sr.s:
+                    queue.append({ s = curr.s, e = r.sr.s, })
+                    curr.s = r.sr.s
+                if r.sr.e < curr.e:
+                    queue.append({ s = r.sr.e, e = curr.e, })
+                    curr.e = r.sr.e
+                next_queue.append({ s = curr.s + diff, e = curr.e + diff, })
+                breakflag = true
+                break
+            if not breakflag:
+                next_queue.append(curr)
+        queue = next_queue
         current = data[current].to
 
-    rset.sort_custom(func(a, b): return a.s - b.s)
-    result = rset[0].s
+    queue.sort_custom(func(a, b): return a.s < b.s)
+    result = queue[0].s
 
 
     var time_end :int = Time.get_ticks_msec()
     print('part 2: ', result, ' time: ', time_end - time_start)
+
+
+func val_in_rng(val :int, rng :Dictionary) -> bool:
+    return rng.s <= val and val <= rng.e
+
+
+func rng_in_rng(in_ :Dictionary, out_ :Dictionary) -> bool:
+    return out_.s <= in_.s and in_.e <= out_.e
+
+func no_rng_overlap(a :Dictionary, b :Dictionary) -> bool:
+    return a.s >= b.e or a.e <= b.s
 
 
