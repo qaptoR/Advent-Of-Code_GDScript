@@ -13,6 +13,7 @@ func _init() -> void:
     print("Saluton, Tago 00!\n")
 
     var data :Dictionary = load_data(DATA_FILE)
+    print(JSON.stringify(data, '  ', false))
 
     test_data1(data)
     test_data2(data)
