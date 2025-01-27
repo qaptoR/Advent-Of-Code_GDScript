@@ -2,8 +2,8 @@
 extends SceneTree
 
 const DATA_FILE = (
-    # "D:/Files/advent/2099/day00/test.txt"
-    "D:/Files/advent/2099/day00/data.txt"
+    "D:/Files/advent/2099/day00/test1.txt"
+    # "D:/Files/advent/2099/day00/data.txt"
     # "/Users/rocco/Programming/advent/2099/day00/data.txt"
     # "/Users/rocco/Programming/advent/2099/day00/test.txt"
 )
