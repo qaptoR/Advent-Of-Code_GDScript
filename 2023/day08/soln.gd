@@ -93,27 +93,8 @@ func test_data2(data :Dictionary) -> void:
         if starts.size() == 0: break
         index = (index + 1) % data.directions.size()
 
-    print(finished)
-    print('---')
-    result = finished.reduce(func(acc, x): return get_primes(acc, x.count), {})
-    result = result.keys().reduce(func(acc, key): return acc * pow(key, result[key]), 1)
+    var nums = finished.map(func(x): return x.count)
+    result = Math.lcm(nums)
 
     var time_end :int = Time.get_ticks_msec()
     print('part 2: ', result, ' time: ', time_end - time_start)
-
-
-func get_primes(primes :Dictionary, val :int) -> Dictionary:
-
-    var min_factor :int = ceil(sqrt(val))
-    for current in ([2, 3] + range(4, min_factor)):
-        var count :int = 0
-        while val % current == 0:
-            val /= current
-            count += 1
-        if count > 0:
-            primes[current] = max(primes.get(current, 0), count)
-        current += 1
-    if val > 1:
-        primes[val] = max(primes.get(val, 0), 1)
-
-    return primes
