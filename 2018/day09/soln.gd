@@ -75,7 +75,7 @@ func play_game(players :int, points :int) -> int:
     var scores :Dictionary = {}
     for i in range(players): scores[i] = 0
 
-    var circle := CircleDLLDict.new()
+    var circle := CircleDLL.new()
     circle.insert_right(0)
     for marble in range(1, points +1):
         var curr_player = posmod(marble, players)
@@ -86,4 +86,5 @@ func play_game(players :int, points :int) -> int:
             circle.rotate(1)
             circle.insert_right(marble)
 
+    circle.free_mem()
     return scores.values().max()
